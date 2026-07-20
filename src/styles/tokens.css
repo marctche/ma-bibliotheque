@@ -1,0 +1,72 @@
+:root {
+  --bg: #0e0e11;
+  --surface: #17171c;
+  --surface-raised: #1d1d24;
+  --text: #ececf1;
+  --muted: #8b8b96;
+  --border: #26262e;
+
+  --accent: #8b5cf6;
+  --accent-strong: #a78bfa;
+
+  /* GitHub-style intensity ramp for the contribution grid */
+  --ramp-0: #1d1b2e;
+  --ramp-1: #382d63;
+  --ramp-2: #5b3fa0;
+  --ramp-3: #7c4fd6;
+  --ramp-4: #8b5cf6;
+
+  /* genre palette: accent + 4 muted distinguishable hues */
+  --genre-hiphop: #8b5cf6;
+  --genre-rnb: #ec8fc4;
+  --genre-alt-rock: #f5a35c;
+  --genre-pop: #5cc9f5;
+  --genre-electronic: #6ee7b7;
+  --genre-other: #6b6b76;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent-strong);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+}
+
+button,
+select {
+  font-family: inherit;
+  color: inherit;
+}
