@@ -2,7 +2,7 @@
 
 A bilingual (FR/EN) interactive dashboard visualizing my real Apple Music library export: 5,115 tracks, 49,038 plays, additions spanning 2018–2026. A portrait of one listener's taste and habits over eight years.
 
-**Live:** https://ma-bibliotheque-marctche.vercel.app
+**Live:** https://devoir5.vercel.app
 
 ## Stack
 
