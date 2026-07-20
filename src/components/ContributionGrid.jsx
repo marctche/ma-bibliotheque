@@ -15,13 +15,23 @@ function toISODate(date) {
   return `${y}-${m}-${d}`
 }
 
-function bucketFor(count, maxCount) {
+// Quantile breakpoints over non-zero day counts (computed once from the whole
+// dataset). A simple count/max ratio collapses almost every day into bucket 1
+// because a handful of bulk-import days (1000+ adds) dwarf typical days
+// (1-20 adds); quantiles keep the ramp readable regardless of those outliers.
+function quantileBreakpoints(dailyAdds) {
+  const nonZero = Object.values(dailyAdds).filter((v) => v > 0).sort((a, b) => a - b)
+  if (!nonZero.length) return [0, 0, 0]
+  const at = (p) => nonZero[Math.min(nonZero.length - 1, Math.floor(p * (nonZero.length - 1)))]
+  return [at(0.5), at(0.75), at(0.9)]
+}
+
+function bucketFor(count, breakpoints) {
   if (!count || count <= 0) return 0
-  if (maxCount <= 0) return 0
-  const ratio = count / maxCount
-  if (ratio <= 0.25) return 1
-  if (ratio <= 0.5) return 2
-  if (ratio <= 0.75) return 3
+  const [q50, q75, q90] = breakpoints
+  if (count <= q50) return 1
+  if (count <= q75) return 2
+  if (count <= q90) return 3
   return 4
 }
 
@@ -62,13 +72,7 @@ export default function ContributionGrid() {
     return [...set].sort((a, b) => a - b)
   }, [dailyAdds])
 
-  const maxCount = useMemo(() => {
-    let max = 0
-    for (const v of Object.values(dailyAdds)) {
-      if (v > max) max = v
-    }
-    return max
-  }, [dailyAdds])
+  const breakpoints = useMemo(() => quantileBreakpoints(dailyAdds), [dailyAdds])
 
   const [selectedYear, setSelectedYear] = useState(
     years.length ? years[years.length - 1] : new Date().getFullYear()
@@ -124,7 +128,7 @@ export default function ContributionGrid() {
                     )
                   }
                   const count = dailyAdds[day.iso] ?? 0
-                  const bucket = bucketFor(count, maxCount)
+                  const bucket = bucketFor(count, breakpoints)
                   const formattedDate = fmtDate(day.iso)
                   const label =
                     count > 0
