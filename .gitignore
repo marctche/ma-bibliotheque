@@ -1,0 +1,8 @@
+node_modules
+dist
+.vercel
+*.log
+.DS_Store
+.claude
+PLAN.md
+Ete2026-SEG3525-Devoir5-TableauBord.pdf
