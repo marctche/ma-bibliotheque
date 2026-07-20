@@ -1,0 +1,29 @@
+.genre-drift-chart__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.genre-drift-chart__toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.genre-drift-chart__toggle button {
+  background: var(--surface);
+  border: none;
+  padding: var(--space-1) var(--space-3);
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.genre-drift-chart__toggle button[aria-pressed='true'] {
+  background: var(--accent);
+  color: #fff;
+}
